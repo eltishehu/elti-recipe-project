@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.elti</groupId>
-    <artifactId>recipe-project</artifactId>
+    <artifactId>elti-recipe-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>recipe-project</name>
+    <name>elti-recipe-project</name>
     <description>Recipe project for Spring Boot</description>
 
     <parent>
