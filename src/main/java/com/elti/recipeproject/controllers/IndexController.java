@@ -11,8 +11,6 @@ public class IndexController {
 
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage() {
-        System.out.println("Recipe List!!! --- 134343");
-
         return "index";
     }
 }
