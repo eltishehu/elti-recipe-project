@@ -1,13 +1,9 @@
 package com.elti.recipeproject.controllers;
 
-import com.elti.recipeproject.model.Category;
-import com.elti.recipeproject.model.UnitOfMeasure;
-import com.elti.recipeproject.repositories.CategoryRepository;
-import com.elti.recipeproject.repositories.UnitOfMeasureRepository;
+import com.elti.recipeproject.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 /**
  * Created by e.sh. on 27-Sep-18
@@ -15,22 +11,16 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
-    public String getIndexPage() {
+    public String getIndexPage(Model model) {
 
-        Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
-        System.out.println("Catg Id is: " + categoryOptional.get().getId());
-        System.out.println("UOM Id is: " + unitOfMeasureOptional.get().getId());
+        model.addAttribute("recipes", recipeService.getRecipes());
 
         return "index";
     }
