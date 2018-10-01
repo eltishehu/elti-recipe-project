@@ -1,6 +1,7 @@
 package com.elti.recipeproject.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by e.sh. on 28-Sep-18
@@ -21,6 +22,9 @@ public class Recipe {
     private String directions;
     //TODO add
     //private Difficulty difficulty;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     @Lob
     private Byte[] image;
