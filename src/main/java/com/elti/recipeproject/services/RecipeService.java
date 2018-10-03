@@ -1,5 +1,6 @@
 package com.elti.recipeproject.services;
 
+import com.elti.recipeproject.commands.RecipeCommand;
 import com.elti.recipeproject.model.Recipe;
 
 import java.util.Set;
@@ -12,4 +13,6 @@ public interface RecipeService {
     Set<Recipe> getRecipes();
 
     Recipe findById(Long id);
+
+    RecipeCommand saveRecipeCommand(RecipeCommand command);
 }
