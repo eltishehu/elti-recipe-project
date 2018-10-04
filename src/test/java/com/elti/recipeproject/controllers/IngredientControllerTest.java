@@ -4,6 +4,7 @@ import com.elti.recipeproject.commands.IngredientCommand;
 import com.elti.recipeproject.commands.RecipeCommand;
 import com.elti.recipeproject.services.IngredientService;
 import com.elti.recipeproject.services.RecipeService;
+import com.elti.recipeproject.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,9 @@ public class IngredientControllerTest {
     IngredientService ingredientService;
 
     @Mock
+    UnitOfMeasureService unitOfMeasureService;
+
+    @Mock
     RecipeService recipeService;
 
     IngredientController ingredientController;
@@ -37,7 +41,7 @@ public class IngredientControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        ingredientController = new IngredientController(recipeService, ingredientService);
+        ingredientController = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
     }
 
