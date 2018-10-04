@@ -1,7 +1,8 @@
 package com.elti.recipeproject.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,7 +10,8 @@ import java.math.BigDecimal;
 /**
  * Created by e.sh. on 01-Oct-18
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
@@ -17,7 +19,6 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String description;
     private BigDecimal amount;
 
@@ -28,7 +29,6 @@ public class Ingredient {
     private Recipe recipe;
 
     public Ingredient() {
-
     }
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
