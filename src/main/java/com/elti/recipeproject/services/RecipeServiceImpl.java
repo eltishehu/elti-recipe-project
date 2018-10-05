@@ -3,6 +3,7 @@ package com.elti.recipeproject.services;
 import com.elti.recipeproject.commands.RecipeCommand;
 import com.elti.recipeproject.converters.RecipeCommandToRecipe;
 import com.elti.recipeproject.converters.RecipeToRecipeCommand;
+import com.elti.recipeproject.exceptions.NotFoundException;
 import com.elti.recipeproject.model.Recipe;
 import com.elti.recipeproject.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("RECIPE NOT FOUND!!");
         }
 
         return recipeOptional.get();

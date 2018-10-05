@@ -1,16 +1,15 @@
 package com.elti.recipeproject.services;
 
+import com.elti.recipeproject.commands.RecipeCommand;
 import com.elti.recipeproject.converters.RecipeCommandToRecipe;
 import com.elti.recipeproject.converters.RecipeToRecipeCommand;
+import com.elti.recipeproject.exceptions.NotFoundException;
 import com.elti.recipeproject.model.Recipe;
 import com.elti.recipeproject.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -23,8 +22,6 @@ import static org.mockito.Mockito.*;
 /**
  * Created by e.sh. on 02-Oct-18
  */
-@RunWith(SpringRunner.class)
-@DataJpaTest
 public class RecipeServiceImplTest {
 
     RecipeServiceImpl recipeService;
@@ -56,6 +53,38 @@ public class RecipeServiceImplTest {
         Recipe recipeReturned = recipeService.findById(1L);
 
         assertNotNull("Null recipe returned", recipeReturned);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+
+        //should go boom
+    }
+
+    @Test
+    public void getRecipeCommandByIdTest() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand commandById = recipeService.findCommandById(1L);
+
+        assertNotNull("Null recipe returned", commandById);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
