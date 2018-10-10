@@ -48,4 +48,4 @@ jobs:
           command: bash <(curl -s https://codecov.io/bash)
 
       - fixes:
-        - "io/github/config4k::src/main/io.github.config4k"
+        - "io/github/eltishehu::src/main/io.github.eltishehu"
