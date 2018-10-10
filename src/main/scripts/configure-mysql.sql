@@ -6,7 +6,7 @@
 CREATE DATABASE sfg_dev;
 CREATE DATABASE sfg_prod;
 
-#Create database service accounts
+#Create database service accounts; 'elti' is the password
 CREATE USER 'sfg_dev_user'@'localhost' IDENTIFIED BY 'elti';
 CREATE USER 'sfg_prod_user'@'localhost' IDENTIFIED BY 'elti';
 
