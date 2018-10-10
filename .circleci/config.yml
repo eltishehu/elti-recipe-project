@@ -47,5 +47,5 @@ jobs:
           name: Send to CodeCov
           command: bash <(curl -s https://codecov.io/bash)
 
-      - fixes:
-        - "io/github/eltishehu::src/main/io.github.eltishehu"
+fixes:
+  - "io/github/eltishehu::src/main/io.github.eltishehu"
