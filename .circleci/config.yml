@@ -21,21 +21,28 @@ jobs:
       MAVEN_OPTS: -Xmx3200m
 
     steps:
-    - checkout
+      - checkout
 
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "pom.xml" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-    - run: mvn dependency:go-offline
+      - run: mvn dependency:go-offline
 
-    - save_cache:
-        paths:
-        - ~/.m2
-        key: v1-dependencies-{{ checksum "pom.xml" }}
+      - save_cache:
+          paths:
+          - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
 
-    # run tests!
-    - run: mvn integration-test cobertura:cobertura
+      # run tests!
+      - run: mvn integration-test cobertura:cobertura
+
+      - store_test_results:
+          path: target/surefire-reports
+
+      - run:
+          name: Send to CodeCov
+          command: bash <(curl -s https://codecov.io/bash)
